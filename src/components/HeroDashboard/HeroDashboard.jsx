@@ -1,26 +1,28 @@
 import { Event } from '../Event/Event';
-import s from './HeroDashboard.module.css';
+import './HeroDashboard.css';
 
 export const HeroDashboard = () => (
-  <div className={s.dashboard}>
-    <div className={s.primary}>
-      <h3 className={s.title}>Привет, Геннадий!</h3>
-      <p className={s.subtitle}>Двери и окна закрыты, сигнализация включена.</p>
-      <ul className={s.info}>
-        <li className={s.item}>
-          <div className={s['item-title']}>Дома</div>
-          <div className={s['item-details']}>
+  <div className="hero-dashboard">
+    <div className="hero-dashboard__primary">
+      <h3 className="hero-dashboard__title">Привет, Геннадий!</h3>
+      <p className="hero-dashboard__subtitle">
+        Двери и окна закрыты, сигнализация включена.
+      </p>
+      <ul className="hero-dashboard__info">
+        <li className="hero-dashboard__item">
+          <div className="hero-dashboard__item-title">Дома</div>
+          <div className="hero-dashboard__item-details">
             +23
-            <span className={s['a11y-hidden']}>°</span>
+            <span className="a11y-hidden">°</span>
           </div>
         </li>
-        <li className={s.item}>
-          <div className={s['item-title']}>За окном</div>
-          <div className={s['item-details']}>
+        <li className="hero-dashboard__item">
+          <div className="hero-dashboard__item-title">За окном</div>
+          <div className="hero-dashboard__item-details">
             +19
-            <span className={s['a11y-hidden']}>°</span>
+            <span className="a11y-hidden">°</span>
             <div
-              className={`${s.icon} ${s['icon_rain']}`}
+              className="hero-dashboard__icon hero-dashboard__icon_rain"
               role="img"
               aria-label="Дождь"
             ></div>
@@ -28,7 +30,7 @@ export const HeroDashboard = () => (
         </li>
       </ul>
     </div>
-    <ul className={s.schedule}>
+    <ul className="hero-dashboard__schedule">
       <Event
         icon="temp"
         iconLabel="Температура"

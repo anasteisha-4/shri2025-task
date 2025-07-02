@@ -1,8 +1,8 @@
 import { Event } from '../Event/Event';
-import s from './EventGrid.module.css';
+import './EventGrid.css';
 
 export const EventGrid = () => (
-  <ul className={s.grid}>
+  <ul className="event-grid">
     <Event
       slim={true}
       icon="light2"

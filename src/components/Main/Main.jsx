@@ -1,8 +1,8 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { Event } from '../Event/Event';
 import { EventGrid } from '../EventGrid/EventGrid';
 import { HeroDashboard } from '../HeroDashboard/HeroDashboard';
-import s from './Main.module.css';
+import './Main.css';
 
 const TABS = {
   all: {
@@ -139,46 +139,38 @@ for (let i = 0; i < 6; ++i) {
 const TABS_KEYS = Object.keys(TABS);
 
 export const Main = () => {
-  const ref = useRef(null);
-  const initedRef = useRef(false);
-  const sizesRef = useRef([]);
-  const [activeTab, setActiveTab] = useState('all');
-  const [hasRightScroll, setHasRightScroll] = useState(false);
+  const ref = React.useRef();
+  const initedRef = React.useRef(false);
+  const [activeTab, setActiveTab] = React.useState('');
+  const [hasRightScroll, setHasRightScroll] = React.useState(false);
 
-  useEffect(() => {
-    if (!initedRef.current) {
+  React.useEffect(() => {
+    if (!activeTab && !initedRef.current) {
       initedRef.current = true;
-      const tabFromUrl = new URLSearchParams(window.location.search).get('tab');
-      setActiveTab(tabFromUrl || 'all');
+      setActiveTab(new URLSearchParams(location.search).get('tab') || 'all');
     }
-  }, []);
+  });
 
-  useEffect(() => {
-    sizesRef.current = [];
-  }, [activeTab]);
+  const onSelectInput = (event) => {
+    setActiveTab(event.target.value);
+  };
 
-  const onSize = useCallback(
-    (size) => {
-      sizesRef.current.push(size);
-      if (sizesRef.current.length === TABS[activeTab].items.length) {
-        const sumWidth = sizesRef.current.reduce(
-          (acc, item) => acc + item.width,
-          0
-        );
-        const wrapperWidth = ref.current?.offsetWidth || 0;
-        setHasRightScroll(sumWidth > wrapperWidth);
-      }
-    },
-    [activeTab]
-  );
+  let sizes = [];
+  const onSize = (size) => {
+    sizes = [...sizes, size];
+  };
+
+  React.useEffect(() => {
+    const sumWidth = sizes.reduce((acc, item) => acc + item.width, 0);
+    const newHasRightScroll = sumWidth > ref.current.offsetWidth;
+    if (newHasRightScroll !== hasRightScroll) {
+      setHasRightScroll(newHasRightScroll);
+    }
+  });
 
   const onArrowCLick = () => {
-    if (!ref.current) return;
-    const panels = Array.from(ref.current.children);
-    const scroller = panels.find(
-      (el) =>
-        el.classList.contains(s['section__panel']) &&
-        !el.classList.contains(s['section__panel_hidden'])
+    const scroller = ref.current.querySelector(
+      '.section__panel:not(.section__panel_hidden)'
     );
     if (scroller) {
       scroller.scrollTo({
@@ -189,32 +181,30 @@ export const Main = () => {
   };
 
   return (
-    <main className={s.main}>
-      <section className={`section ${s.general}`}>
-        <h2
-          className={`${s['section__title']} ${s['section__title-header']} ${s['section__main-title']}`}
-        >
+    <main className="main">
+      <section className="section main__general">
+        <h2 className="section__title section__title-header section__main-title">
           Главное
         </h2>
         <HeroDashboard />
       </section>
 
-      <section className={`${s.section} ${s.scripts}`}>
-        <h2 className={`${s['section__title']} ${s['section__title-header']}`}>
+      <section className="section main__scripts">
+        <h2 className="section__title section__title-header">
           Избранные сценарии
         </h2>
 
         <EventGrid />
       </section>
 
-      <section className={`${s.section} ${s.devices}`}>
-        <div className={s['section__title']}>
-          <h2 className={s['section__title-header']}>Избранные устройства</h2>
+      <section className="section main__devices">
+        <div className="section__title">
+          <h2 className="section__title-header">Избранные устройства</h2>
 
           <select
-            className={s['section__select']}
+            className="section__select"
             defaultValue="all"
-            onChange={(e) => setActiveTab(e.target.value)}
+            onInput={onSelectInput}
           >
             {TABS_KEYS.map((key) => (
               <option key={key} value={key}>
@@ -223,7 +213,7 @@ export const Main = () => {
             ))}
           </select>
 
-          <ul role="tablist" className={s['section__tabs']}>
+          <ul role="tablist" className="section__tabs">
             {TABS_KEYS.map((key) => (
               <li
                 key={key}
@@ -231,8 +221,8 @@ export const Main = () => {
                 aria-selected={key === activeTab ? 'true' : 'false'}
                 tabIndex={key === activeTab ? '0' : undefined}
                 className={
-                  s['section__tab'] +
-                  (key === activeTab ? ` ${s['section__tab_active']}` : '')
+                  'section__tab' +
+                  (key === activeTab ? ' section__tab_active' : '')
                 }
                 id={`tab_${key}`}
                 aria-controls={`panel_${key}`}
@@ -244,20 +234,20 @@ export const Main = () => {
           </ul>
         </div>
 
-        <div className={s['section__panel-wrapper']} ref={ref}>
+        <div className="section__panel-wrapper" ref={ref}>
           {TABS_KEYS.map((key) => (
             <div
               key={key}
               role="tabpanel"
               className={
-                s['section__panel'] +
-                (key === activeTab ? '' : ` ${s['section__panel_hidden']}`)
+                'section__panel' +
+                (key === activeTab ? '' : ' section__panel_hidden')
               }
               aria-hidden={key === activeTab ? 'false' : 'true'}
               id={`panel_${key}`}
               aria-labelledby={`tab_${key}`}
             >
-              <ul className={s['section__panel-list']}>
+              <ul className="section__panel-list">
                 {TABS[key].items.map((item, index) => (
                   <Event key={index} {...item} onSize={onSize} />
                 ))}
@@ -265,7 +255,7 @@ export const Main = () => {
             </div>
           ))}
           {hasRightScroll && (
-            <div className={s['section__arrow']} onClick={onArrowCLick}></div>
+            <div className="section__arrow" onClick={onArrowCLick}></div>
           )}
         </div>
       </section>

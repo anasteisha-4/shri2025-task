@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import s from './Header.module.css';
+import React from 'react';
+import './Header.css';
 
 export const Header = () => {
-  let [expanded, setExpanded] = useState(false);
-  let [toggled, setToggled] = useState(false);
+  let [expanded, setExpanded] = React.useState(false);
+  let [toggled, setToggled] = React.useState(false);
 
   const onClick = () => {
     if (!toggled) {
@@ -14,40 +14,40 @@ export const Header = () => {
   };
 
   return (
-    <header className={s.header}>
-      <a href="/" className={s.logo} aria-label="Яндекс.Дом" />
+    <header className="header">
+      <a href="/" className="header__logo" aria-label="Яндекс.Дом"></a>
       <button
-        className={s.menu}
+        className="header__menu"
         aria-expanded={expanded ? 'true' : 'false'}
         onClick={onClick}
       >
-        <span className={`${s['menu-text']} ${s['a11y-hidden']}`}>
+        <span className="header__menu-text a11y-hidden">
           {expanded ? 'Закрыть меню' : 'Открыть меню'}
         </span>
       </button>
       <ul
         className={
-          s.links +
-          (expanded ? ` ${s['links_opened']}` : '') +
-          (toggled ? ` ${s['links-toggled']}` : '')
+          'header__links' +
+          (expanded ? ' header__links_opened' : '') +
+          (toggled ? ' header__links-toggled' : '')
         }
       >
-        <li className={s['item']}>
+        <li className="header__item">
           <a
-            className={`${s.link} ${s['link_current']}`}
+            className="header__link header__link_current"
             href="/"
             aria-current="page"
           >
             Сводка
           </a>
         </li>
-        <li className={s.item}>
-          <a className={s.link} href="/devices">
+        <li className="header__item">
+          <a className="header__link" href="/devices">
             Устройства
           </a>
         </li>
-        <li className={s.item}>
-          <a className={s.link} href="/scripts">
+        <li className="header__item">
+          <a className="header__link" href="/scripts">
             Сценарии
           </a>
         </li>

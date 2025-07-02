@@ -1,13 +1,3 @@
-.a11y-hidden {
-  position: absolute;
-  left: auto;
-  height: 1px;
-  width: 1px;
-  top: 0;
-  overflow: hidden;
-  clip: rect(1px 1px 1px 1px);
-}
-
 .header {
   position: relative;
   display: flex;
@@ -29,7 +19,7 @@
   }
 }
 
-.logo {
+.header__logo {
   flex: 0 0 auto;
   width: 6.75rem;
   height: 2.3125rem;
@@ -38,7 +28,7 @@
   background-size: contain;
 }
 
-.menu {
+.header__menu {
   display: none;
   width: 3.5rem;
   height: 100%;
@@ -52,12 +42,12 @@
 }
 
 @media (max-width: 768px) {
-  .menu {
+  .header__menu {
     display: block;
   }
 }
 
-.links {
+.header__links {
   display: flex;
   gap: 1.75rem;
   margin: 0;
@@ -66,7 +56,7 @@
 }
 
 @media (max-width: 768px) {
-  .links {
+  .header__links {
     display: none;
 
     position: absolute;
@@ -81,13 +71,13 @@
     box-shadow: 0 2px 6px 0 rgba(197, 186, 186, 0.5);
   }
 
-  .links-toggled {
+  .header__links-toggled {
     display: flex;
     animation: hideMenu 0.3s ease-in-out 1;
     animation-fill-mode: both;
   }
 
-  .links_opened {
+  .header__links_opened {
     display: flex;
     visibility: visible;
     animation: showMenu 0.3s ease-in-out 1;
@@ -119,12 +109,12 @@
   }
 }
 
-.item {
+.header__item {
   margin: 0;
   padding: 0;
 }
 
-.link {
+.header__link {
   font-weight: bold;
   opacity: 0.6;
   transition: opacity 0.15s ease-in-out;
@@ -132,10 +122,20 @@
   color: #333333;
 }
 
-.link:hover {
+.header__link:hover {
   opacity: 1;
 }
 
-.link_current {
+.header__link_current {
   opacity: 1;
+}
+
+.a11y-hidden {
+  position: absolute;
+  left: auto;
+  height: 1px;
+  width: 1px;
+  top: 0;
+  overflow: hidden;
+  clip: rect(1px 1px 1px 1px);
 }

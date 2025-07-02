@@ -1,4 +1,4 @@
-.button {
+.event__button {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -19,16 +19,16 @@
   appearance: none;
 }
 
-.slim .button {
+.event_slim .event__button {
   height: 6.25rem;
 }
 
-.button:hover {
+.event__button:hover {
   background: #fff;
   box-shadow: 0 2px 6px 0 rgba(197, 186, 186, 0.5);
 }
 
-.icon {
+.event__icon {
   position: absolute;
   top: 0.875rem;
   left: 0.875rem;
@@ -39,34 +39,34 @@
   background-size: contain;
 }
 
-.icon_temp {
+.event__icon_temp {
   background-image: url(../../assets/icon_temperature.svg);
 }
 
-.icon_temp2 {
+.event__icon_temp2 {
   background-image: url(../../assets/icon_temperature_2.svg);
 }
 
-.icon_light {
+.event__icon_light {
   background-image: url(../../assets/icon_sun.svg);
 }
 
-.icon_light2 {
+.event__icon_light2 {
   background-image: url(../../assets/icon_sun_2.svg);
 }
 
-.icon_schedule {
+.event__icon_schedule {
   background-image: url(../../assets/icon_scheduled.svg);
 }
 
-.title {
+.event__title {
   margin: 0;
   font-size: 0.875rem;
   font-weight: bold;
   color: #333333;
 }
 
-.subtitle {
+.event__subtitle {
   font-size: 0.75rem;
   color: #858585;
 }

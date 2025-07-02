@@ -1,26 +1,17 @@
-.dashboard {
+.hero-dashboard {
   position: relative;
   box-sizing: border-box;
   display: flex;
   gap: 0.9375rem;
   height: 20.6875rem;
   background: no-repeat 50% 50% url(../../assets/bg@2x.png);
+  /*background-size: cover;*/
   background-size: 1260px;
   border-radius: 1.25rem;
 }
 
-.a11y-hidden {
-  position: absolute;
-  left: auto;
-  height: 1px;
-  width: 1px;
-  top: 0;
-  overflow: hidden;
-  clip: rect(1px 1px 1px 1px);
-}
-
 @media (max-width: 768px) {
-  .dashboard {
+  .hero-dashboard {
     flex-direction: column;
     gap: 1.25rem;
     height: auto;
@@ -29,18 +20,18 @@
   }
 }
 
-.primary {
+.hero-dashboard__primary {
   flex: 1 1 auto;
   padding: 1.25rem 0 1.25rem 1.25rem;
 }
 
 @media (max-width: 768px) {
-  .primary {
+  .hero-dashboard__primary {
     padding: 1.25rem 1.25rem 0 1.25rem;
   }
 }
 
-.title {
+.hero-dashboard__title {
   margin: 0.375rem 0;
   font-size: 1.6875rem;
   font-weight: bold;
@@ -48,25 +39,25 @@
 }
 
 @media (max-width: 768px) {
-  .title {
+  .hero-dashboard__title {
     font-size: 1.125rem;
   }
 }
 
-.subtitle {
+.hero-dashboard__subtitle {
   margin: 0.375rem 0 0 0;
   font-size: 0.875rem;
   color: #333333;
 }
 
 @media (max-width: 768px) {
-  .subtitle {
+  .hero-dashboard__subtitle {
     margin: 0.3125rem 0 0 0;
     font-size: 0.75rem;
   }
 }
 
-.info {
+.hero-dashboard__info {
   display: flex;
   gap: 1.125rem;
   margin: 1.5625rem 0 0 0;
@@ -75,28 +66,28 @@
 }
 
 @media (max-width: 768px) {
-  .info {
+  .hero-dashboard__info {
     margin-top: 0.9375rem;
   }
 }
 
-.item {
+.hero-dashboard__item {
   margin: 0;
   padding: 0;
 }
 
-.item-title {
+.hero-dashboard__item-title {
   font-size: 0.875rem;
   color: #858585;
 }
 
 @media (max-width: 768px) {
-  .item-title {
+  .hero-dashboard__item-title {
     font-size: 0.75rem;
   }
 }
 
-.item-details {
+.hero-dashboard__item-details {
   display: flex;
   align-items: center;
   margin-top: 0.25rem;
@@ -106,13 +97,13 @@
 }
 
 @media (max-width: 768px) {
-  .item-details {
+  .hero-dashboard__item-details {
     margin-top: 0.3125rem;
     font-size: 1.5rem;
   }
 }
 
-.icon {
+.hero-dashboard__icon {
   width: 1.625rem;
   height: 1.625rem;
   margin-left: 0.3125rem;
@@ -122,17 +113,17 @@
 }
 
 @media (max-width: 768px) {
-  .icon {
+  .hero-dashboard__icon {
     width: 1.375rem;
     height: 1.375rem;
   }
 }
 
-.icon_rain {
+.hero-dashboard__icon_rain {
   background-image: url(../../assets/cloud-drizzle.svg);
 }
 
-.schedule {
+.hero-dashboard__schedule {
   display: flex;
   flex: 0 0 auto;
   flex-direction: column;
@@ -144,13 +135,23 @@
   scrollbar-width: none;
 }
 
-.schedule::-webkit-scrollbar {
+.hero-dashboard__schedule::-webkit-scrollbar {
   display: none;
 }
 
 @media (max-width: 768px) {
-  .schedule {
+  .hero-dashboard__schedule {
     flex-direction: row;
     padding: 0 1.25rem 1.25rem 1.25rem;
   }
+}
+
+.a11y-hidden {
+  position: absolute;
+  left: auto;
+  height: 1px;
+  width: 1px;
+  top: 0;
+  overflow: hidden;
+  clip: rect(1px 1px 1px 1px);
 }
