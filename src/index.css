@@ -1,0 +1,18 @@
+html {
+  font-size: 100%;
+  font-family: Arial, sans-serif;
+  line-height: 1.25;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  font-family: inherit;
+  line-height: inherit;
+  margin: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
