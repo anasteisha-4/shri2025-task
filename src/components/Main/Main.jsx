@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Event } from '../Event/Event';
 import { EventGrid } from '../EventGrid/EventGrid';
 import { HeroDashboard } from '../HeroDashboard/HeroDashboard';
@@ -139,38 +139,38 @@ for (let i = 0; i < 6; ++i) {
 const TABS_KEYS = Object.keys(TABS);
 
 export const Main = () => {
-  const ref = useRef();
-  const initedRef = useRef(false);
-  const [activeTab, setActiveTab] = useState('');
+  const ref = useRef(null);
+  const sizesRef = useRef([]);
+  const [activeTab, setActiveTab] = useState(() => {
+    return new URLSearchParams(window.location.search).get('tab') || 'all';
+  });
   const [hasRightScroll, setHasRightScroll] = useState(false);
 
   useEffect(() => {
-    if (!activeTab && !initedRef.current) {
-      initedRef.current = true;
-      setActiveTab(new URLSearchParams(location.search).get('tab') || 'all');
-    }
-  });
+    sizesRef.current = [];
+  }, [activeTab]);
 
-  const onSelectInput = (event) => {
-    setActiveTab(event.target.value);
-  };
+  const onSize = useCallback(
+    (size) => {
+      sizesRef.current.push(size);
+      if (sizesRef.current.length === TABS[activeTab].items.length) {
+        const sumWidth = sizesRef.current.reduce(
+          (acc, item) => acc + item.width,
+          0
+        );
+        const wrapperWidth = ref.current?.offsetWidth || 0;
+        setHasRightScroll(sumWidth > wrapperWidth);
+      }
+    },
+    [activeTab]
+  );
 
-  let sizes = [];
-  const onSize = (size) => {
-    sizes = [...sizes, size];
-  };
-
-  useEffect(() => {
-    const sumWidth = sizes.reduce((acc, item) => acc + item.width, 0);
-    const newHasRightScroll = sumWidth > ref.current.offsetWidth;
-    if (newHasRightScroll !== hasRightScroll) {
-      setHasRightScroll(newHasRightScroll);
-    }
-  });
-
-  const onArrowCLick = () => {
-    const scroller = ref.current.querySelector(
-      '.section__panel:not(.section__panel_hidden)'
+  const onArrowClick = useCallback(() => {
+    if (!ref.current) return;
+    const scroller = Array.from(ref.current.children).find(
+      (el) =>
+        el.classList.contains('section__panel') &&
+        !el.classList.contains('section__panel_hidden')
     );
     if (scroller) {
       scroller.scrollTo({
@@ -178,7 +178,11 @@ export const Main = () => {
         behavior: 'smooth'
       });
     }
-  };
+  }, []);
+
+  const onSelectInput = useCallback((event) => {
+    setActiveTab(event.target.value);
+  }, []);
 
   return (
     <main className="main">
@@ -255,7 +259,7 @@ export const Main = () => {
             </div>
           ))}
           {hasRightScroll && (
-            <div className="section__arrow" onClick={onArrowCLick}></div>
+            <div className="section__arrow" onClick={onArrowClick}></div>
           )}
         </div>
       </section>
