@@ -12,7 +12,7 @@ export const Event = (props) => {
     if (onSize) {
       onSize({ width, height });
     }
-  });
+  }, [onSize]);
 
   return (
     <li ref={ref} className={'event' + (props.slim ? ' event_slim' : '')}>
